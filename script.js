@@ -3,6 +3,11 @@ let currentPlayer = "X";
 let resetBtn = document.querySelector(".reset-btn");
 let winStatus = false;
 
+// Modal and its inner message and button
+let modal = document.getElementById("resultModal");
+let resultMessage = document.getElementById("resultMessage");
+let playAgainBtn = document.getElementById("playAgainBtn");
+
 
 // Function to reset game
 function resetGame() {
@@ -22,6 +27,9 @@ function resetGame() {
     winStatus = false;
     
     document.getElementById("currentPlayer").innerText = currentPlayer;
+
+    // Hide Modal
+    modal.classList.remove("show");
 }
 
 
@@ -63,8 +71,8 @@ function checkGameWin() {
     }
 
     if (winStatus) {
-        alert(currentPlayer + " won the game!");
-        resetGame();
+        resultMessage.innerText = currentPlayer + " won the game!🎉"
+        modal.classList.add("show");
     }
 
 }
@@ -118,3 +126,6 @@ cells.forEach(cell => cell.addEventListener("click", handleClick));
 
 // Click Handler for Reset Button
 resetBtn.addEventListener("click", resetGame);
+
+// Click Handler for Modal Play Again button
+playAgainBtn.addEventListener("click", resetGame);
