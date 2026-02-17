@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tic Tac Toe</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="title">Tic Tac Toe</h1>
+
+    <div class="status">
+      Player <span id="currentPlayer">X</span>'s Turn
+    </div>
+
+    <div class="board">
+      <button class="cell" data-index="0" tabindex="0" aria-label="Empty cell, row 1 column 1" aria-live="polite"></button>
+      <button class="cell" data-index="1" tabindex="0" aria-label="Empty cell, row 1 column 2" aria-live="polite"></button>
+      <button class="cell" data-index="2" tabindex="0" aria-label="Empty cell, row 1 column 3" aria-live="polite"></button>
+      <button class="cell" data-index="3" tabindex="0" aria-label="Empty cell, row 2 column 1" aria-live="polite"></button>
+      <button class="cell" data-index="4" tabindex="0" aria-label="Empty cell, row 2 column 2" aria-live="polite"></button>
+      <button class="cell" data-index="5" tabindex="0" aria-label="Empty cell, row 2 column 3" aria-live="polite"></button>
+      <button class="cell" data-index="6" tabindex="0" aria-label="Empty cell, row 3 column 1" aria-live="polite"></button>
+      <button class="cell" data-index="7" tabindex="0" aria-label="Empty cell, row 3 column 2" aria-live="polite"></button>
+      <button class="cell" data-index="8" tabindex="0" aria-label="Empty cell, row 3 column 3" aria-live="polite"></button>
+    </div>
+
+    <button class="reset-btn" id="resetBtn">Restart Game</button>
+  </div>
+
+    <div class="modal" id="resultModal">
+        <div class="modal-content">
+            <h2 id="resultMessage">Player X Wins! 🎉</h2>
+            <button id="playAgainBtn">Play Again</button>
+        </div>
+    </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
