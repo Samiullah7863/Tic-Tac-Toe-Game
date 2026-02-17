@@ -1,5 +1,26 @@
 let cells = document.querySelectorAll(".cell");
 let currentPlayer = "X";
+let resetBtn = document.querySelector(".reset-btn");
+
+
+// Function to reset game
+function resetGame() {
+    cells.forEach(cell => {
+        // Removing all the "X" and "O" stylings
+        cell.classList.remove("X");
+        cell.classList.remove("O");
+
+        // Making the cells keyboard accessible again
+        cell.setAttribute(
+            "tabindex",
+            "0"
+        );
+    })
+
+    currentPlayer = "X";
+    
+    document.getElementById("currentPlayer").innerText = currentPlayer;
+}
 
 
 function changeCurrentPlayer() {
@@ -44,3 +65,6 @@ function handleClick(e) {
 
 // Iterating over cells
 cells.forEach(cell => cell.addEventListener("click", handleClick));
+
+// Click Handler for Reset Button
+resetBtn.addEventListener("click", resetGame);
