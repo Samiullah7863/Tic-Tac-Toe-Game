@@ -78,6 +78,30 @@ function checkGameWin() {
 }
 
 
+// Update modal inner message to game over and show it
+function displayGameOverMessage() {
+    resultMessage.innerText = "The game ended in a draw!";
+    modal.classList.add("show");
+}
+
+
+function checkGameOver() {
+
+    // If there is an empty cell, do nothing
+    for (let cell of cells) {
+        if (!cell.classList.contains("X") && !cell.classList.contains("O")) {
+            return false;
+        }
+    }
+
+    // If all the cells are filled and there is no winner, display game over message
+    if(!winStatus) {
+        displayGameOverMessage();
+        return true;
+    }
+}
+
+
 function changeCurrentPlayer() {
     if (currentPlayer === "X") {
         currentPlayer = "O";
@@ -113,6 +137,9 @@ function handleClick(e) {
 
     // Check if game is being won
     checkGameWin();
+
+    // Check if game is over/draw
+    checkGameOver();
 
     // Change Player Turn
     changeCurrentPlayer();
