@@ -8,6 +8,13 @@ let modal = document.getElementById("resultModal");
 let resultMessage = document.getElementById("resultMessage");
 let playAgainBtn = document.getElementById("playAgainBtn");
 
+// Wining Combinations
+let winningCombinations = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+    [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+    [0, 4, 8], [2, 4, 6] // diagonals
+];
+
 
 // Function to reset game
 function resetGame() {
@@ -37,43 +44,24 @@ function checkGameWin() {
     let cellInputs = [];
     cells.forEach(cell => {
         // Store "O" or "X" in case the cell is filled, else store "|" in cellinputs array
-        if (cell.classList[1]) {
-            cellInputs += cell.classList[1];
-        } else {
-            cellInputs += "|";
-        }
+        cellInputs.push(cell.classList[1] ?? "|")
     });
 
     // Check winning combinations
-    if(cellInputs[0] === currentPlayer && cellInputs[1] === currentPlayer && cellInputs[2] === currentPlayer) {
-        winStatus = true;
-    }
-    else if(cellInputs[3] === currentPlayer && cellInputs[4] === currentPlayer && cellInputs[5] === currentPlayer) {
-        winStatus = true;
-    }
-    else if(cellInputs[6] === currentPlayer && cellInputs[7] === currentPlayer && cellInputs[8] === currentPlayer) {
-        winStatus = true;
-    }
-    else if(cellInputs[0] === currentPlayer && cellInputs[3] === currentPlayer && cellInputs[6] === currentPlayer) {
-        winStatus = true;
-    }
-    else if(cellInputs[1] === currentPlayer && cellInputs[4] === currentPlayer && cellInputs[7] === currentPlayer) {
-        winStatus = true;
-    }
-    else if(cellInputs[2] === currentPlayer && cellInputs[5] === currentPlayer && cellInputs[8] === currentPlayer) {
-        winStatus = true;
-    }
-    else if(cellInputs[0] === currentPlayer && cellInputs[4] === currentPlayer && cellInputs[8] === currentPlayer) {
-        winStatus = true;
-    }
-    else if(cellInputs[2] === currentPlayer && cellInputs[4] === currentPlayer && cellInputs[6] === currentPlayer) {
-        winStatus = true;
-    }
+    winStatus = winningCombinations.some(([a, b, c]) =>
+        cellInputs[a] === currentPlayer && 
+        cellInputs[b] === currentPlayer && 
+        cellInputs[c] === currentPlayer
+    )
+
 
     if (winStatus) {
         resultMessage.innerText = currentPlayer + " won the game!🎉"
         modal.classList.add("show");
+        return true;
     }
+
+    return false;
 
 }
 
@@ -94,9 +82,8 @@ function checkGameOver() {
         }
     }
 
-    // If all the cells are filled and there is no winner, display game over message
+    // If all the cells are filled and there is no winner, return true for game over
     if(!winStatus) {
-        displayGameOverMessage();
         return true;
     }
 }
@@ -135,14 +122,20 @@ function handleClick(e) {
         "-1"
     );
 
-    // Check if game is being won
-    checkGameWin();
+    // Check game won status, else check game over status or continue game
+    if (!checkGameWin()) {
 
-    // Check if game is over/draw
-    checkGameOver();
+        // Check if game is over/draw then display game over message
+        if (checkGameOver()) {
+            displayGameOverMessage();
+        } else {
+            // Change Player Turn
+            changeCurrentPlayer();
+        }
 
-    // Change Player Turn
-    changeCurrentPlayer();
+    } 
+
+    
 
     // Update player turn text on frontend
     document.getElementById("currentPlayer").innerText = currentPlayer;
